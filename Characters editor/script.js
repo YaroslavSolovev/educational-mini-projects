@@ -53,7 +53,7 @@ btn.addEventListener("click", () => {
 
 function renderCharacters() {
    list.innerHTML = "";
-   characters.forEach((character) => {
+   characters.forEach((character,index) => {
       const card = document.createElement("div");
       card.innerHTML = `
       <h3>${character.name}</h3>
@@ -64,7 +64,15 @@ function renderCharacters() {
       <p>Mana: ${character.mana}</p>
       <hr>
       `;
+      const deleteBtn = document.createElement("button");
+      deleteBtn.textContent = "Удалить персонажа";
+      deleteBtn.addEventListener("click", () => {
+         characters.splice(index,1);
+         renderCharacters();
+      });
+      card.appendChild(deleteBtn);
       list.appendChild(card);
+      console.log(character)
    });
-
 }
+
