@@ -62,7 +62,6 @@ function renderCharacters() {
       <p>Attack: ${character.attack}</p>
       <p>Defense: ${character.defense}</p>
       <p>Mana: ${character.mana}</p>
-      <hr>
       `;
       const deleteBtn = document.createElement("button");
       deleteBtn.textContent = "Удалить персонажа";
