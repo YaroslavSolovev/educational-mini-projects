@@ -53,6 +53,7 @@ btn.addEventListener("click", () => {
 
 function renderCharacters() {
    list.innerHTML = "";
+
    characters.forEach((character,index) => {
       const card = document.createElement("div");
       card.innerHTML = `
@@ -62,8 +63,8 @@ function renderCharacters() {
       <p>Attack: ${character.attack}</p>
       <p>Defense: ${character.defense}</p>
       <p>Mana: ${character.mana}</p>
-      <hr>
       `;
+      card.classList.add("card")
       const deleteBtn = document.createElement("button");
       deleteBtn.textContent = "Удалить персонажа";
       deleteBtn.addEventListener("click", () => {
@@ -71,8 +72,16 @@ function renderCharacters() {
          renderCharacters();
       });
       card.appendChild(deleteBtn);
+      const hr = document.createElement("hr");
+      card.appendChild(hr);
       list.appendChild(card);
-      console.log(character)
+      card.addEventListener("click", () => {
+         const allCard=document.querySelectorAll(".card")
+         allCard.forEach(cards => {
+            cards.classList.remove("selected");
+         });
+         card.classList.add("selected");
+      });
    });
 }
 
