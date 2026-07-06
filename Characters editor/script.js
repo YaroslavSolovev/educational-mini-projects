@@ -135,6 +135,7 @@ function createStats(character, characterClass) {
          Math.random() *
          (CHARACTER_CLASSES[characterClass].mana.max - CHARACTER_CLASSES[characterClass].mana.min + 1)
       )) * RARITIES[character.rarity].factor);
+   character.imagePath = "src/photos/" + character.characterClass.toLowerCase() + "/" + character.rarity.toLowerCase() +".png"
 }
 
 addGoldBtn.addEventListener("click", ()=>{
@@ -164,6 +165,7 @@ function renderCharacters() {
    game.characters.forEach((character,index) => {
       const card = document.createElement("div");
       card.innerHTML = `
+      <img src="${character.imagePath}">
       <h3>${character.name}</h3>
       <p>Class: ${character.characterClass}</p>
       <p class="HP">HP: ${character.currentHP}/${character.hp}</p>
