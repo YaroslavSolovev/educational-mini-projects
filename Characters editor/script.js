@@ -15,10 +15,10 @@ const game ={
 }
 
 const RARITIES= {
-   "Common": 59,
-   "Rare": 94,
-   "Epic": 99,
-   "Legendary": 100
+   "Common": {probability: 65, factor: 1 },
+   "Rare": {probability: 94, factor: 1.15},
+   "Epic": { probability: 99, factor: 1.3},
+   "Legendary": {probability: 100, factor: 1.5}
 }
 
 const classes= ["Warrior", "Mage", "Archer"]
@@ -85,7 +85,7 @@ const CHARACTER_CLASSES = {
 function selectRarity(){
    let rand = Math.floor(Math.random()* 100)
    for ( let key in RARITIES){
-      if (rand <= RARITIES[key]){
+      if (rand <= RARITIES[key].probability){
          return key
       }
    }
@@ -103,34 +103,36 @@ function renderGold(){
 }
 
 function createStats(character, characterClass) {
+   character.rarity = selectRarity();
    character.hp =
-      CHARACTER_CLASSES[characterClass].hp.min +
+      Math.floor((CHARACTER_CLASSES[characterClass].hp.min +
       Math.floor(
          Math.random() *
          (CHARACTER_CLASSES[characterClass].hp.max - CHARACTER_CLASSES[characterClass].hp.min + 1)
-      );
+      )) * RARITIES[character.rarity].factor);
+
+   character.currentHP = character.hp   
 
    character.attack =
-      CHARACTER_CLASSES[characterClass].attack.min +
+      Math.floor((CHARACTER_CLASSES[characterClass].attack.min +
       Math.floor(
          Math.random() *
          (CHARACTER_CLASSES[characterClass].attack.max - CHARACTER_CLASSES[characterClass].attack.min + 1)
-      );
+      )) * RARITIES[character.rarity].factor);
 
    character.defense =
-      CHARACTER_CLASSES[characterClass].defense.min +
+      Math.floor((CHARACTER_CLASSES[characterClass].defense.min +
       Math.floor(
          Math.random() *
          (CHARACTER_CLASSES[characterClass].defense.max - CHARACTER_CLASSES[characterClass].defense.min + 1)
-      );
+      )) * RARITIES[character.rarity].factor);
 
    character.mana =
-      CHARACTER_CLASSES[characterClass].mana.min +
+      Math.floor((CHARACTER_CLASSES[characterClass].mana.min +
       Math.floor(
          Math.random() *
          (CHARACTER_CLASSES[characterClass].mana.max - CHARACTER_CLASSES[characterClass].mana.min + 1)
-      );
-   character.rarity = selectRarity();
+      )) * RARITIES[character.rarity].factor);
 }
 
 addGoldBtn.addEventListener("click", ()=>{
@@ -162,7 +164,7 @@ function renderCharacters() {
       card.innerHTML = `
       <h3>${character.name}</h3>
       <p>Class: ${character.characterClass}</p>
-      <p>HP: ${character.hp}</p>
+      <p class="HP">HP: ${character.currentHP}/${character.hp}</p>
       <p>Attack: ${character.attack}</p>
       <p>Defense: ${character.defense}</p>
       <p>Mana: ${character.mana}</p>
@@ -170,12 +172,21 @@ function renderCharacters() {
       `;
       card.classList.add("card")
       const deleteBtn = document.createElement("button");
+      const fightBtn = document.createElement("button")
       deleteBtn.textContent = "Удалить персонажа";
+      fightBtn.textContent = "Бой"
       deleteBtn.addEventListener("click", () => {
          game.characters.splice(index,1);
          renderCharacters();
       });
+      fightBtn.addEventListener("click", () => {
+         if (character.currentHP>150){
+            character.currentHP-=150
+            renderCharacters()
+         }
+      });
       card.appendChild(deleteBtn);
+      card.appendChild(fightBtn);
       const hr = document.createElement("hr");
       card.appendChild(hr);
       list.appendChild(card);
