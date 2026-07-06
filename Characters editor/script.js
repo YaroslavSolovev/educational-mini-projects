@@ -1,5 +1,4 @@
 const nameInput = document.querySelector("#name");
-const classSelect = document.querySelector("#class");
 const btn = document.querySelector("#generateBtn");
 const charName = document.querySelector("#charName");
 const charClass = document.querySelector("#charClass");
@@ -8,8 +7,23 @@ const attackEl = document.querySelector("#attack");
 const defenseEl = document.querySelector("#defense");
 const manaEl = document.querySelector("#mana");
 const list = document.querySelector("#list");
-const characters = [];
+const getGold = document.querySelector("#gold");
+const addGoldBtn = document.querySelector("#addGold");
+const game ={
+   gold: 5000,
+   characters: [],
+}
 
+const RARITIES= {
+   "Common": 59,
+   "Rare": 94,
+   "Epic": 99,
+   "Legendary": 100
+}
+
+const classes= ["Warrior", "Mage", "Archer"]
+
+getGold.textContent=`Gold: ${game.gold}`
 
 const CHARACTER_CLASSES = {
    Warrior: {
@@ -68,11 +82,24 @@ const CHARACTER_CLASSES = {
    }
 };
 
+function selectRarity(){
+   let rand = Math.floor(Math.random()* 100)
+   for ( let key in RARITIES){
+      if (rand <= RARITIES[key]){
+         return key
+      }
+   }
+}
+
 class Character {
    constructor(name, characterClass) {
       this.name = name;
       this.characterClass = characterClass;
    }
+}
+
+function renderGold(){
+   getGold.textContent=`Gold: ${game.gold}`
 }
 
 function createStats(character, characterClass) {
@@ -103,21 +130,34 @@ function createStats(character, characterClass) {
          Math.random() *
          (CHARACTER_CLASSES[characterClass].mana.max - CHARACTER_CLASSES[characterClass].mana.min + 1)
       );
+   character.rarity = selectRarity();
 }
 
+addGoldBtn.addEventListener("click", ()=>{
+   game.gold += 100;
+   renderGold();
+})
+
 btn.addEventListener("click", () => {
-   const name = nameInput.value;
-   const characterClass = classSelect.value;
-   const character = new Character(name, characterClass);
-   createStats(character, characterClass);
-   characters.push(character);
-   renderCharacters();
+   if (game.gold >=100){
+      game.gold -=100;
+      const name = nameInput.value;
+      const characterClass = classes[Math.floor(Math.random()*3)]
+      const character = new Character(name, characterClass);
+      createStats(character, characterClass);
+      game.characters.push(character);
+      renderGold();
+      renderCharacters();
+   }
+   else{
+      alert("Недостаточно золота")
+   }
 });
 
 function renderCharacters() {
    list.innerHTML = "";
 
-   characters.forEach((character,index) => {
+   game.characters.forEach((character,index) => {
       const card = document.createElement("div");
       card.innerHTML = `
       <h3>${character.name}</h3>
@@ -126,12 +166,13 @@ function renderCharacters() {
       <p>Attack: ${character.attack}</p>
       <p>Defense: ${character.defense}</p>
       <p>Mana: ${character.mana}</p>
+      <p>Rarity: ${character.rarity}</p>
       `;
       card.classList.add("card")
       const deleteBtn = document.createElement("button");
       deleteBtn.textContent = "Удалить персонажа";
       deleteBtn.addEventListener("click", () => {
-         characters.splice(index,1);
+         game.characters.splice(index,1);
          renderCharacters();
       });
       card.appendChild(deleteBtn);
