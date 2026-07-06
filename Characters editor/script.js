@@ -7,11 +7,13 @@ const attackEl = document.querySelector("#attack");
 const defenseEl = document.querySelector("#defense");
 const manaEl = document.querySelector("#mana");
 const heroCards = document.querySelector("#heroCards");
+const infoCards = document.querySelector("#heroInfo")
 const getGold = document.querySelector("#gold");
 const addGoldBtn = document.querySelector("#addGold");
 const game ={
    gold: 5000,
    characters: [],
+   selectedCharacter: null
 }
 
 const RARITIES= {
@@ -212,9 +214,26 @@ function renderCharacters() {
             cards.classList.remove("selected");
          });
          card.classList.add("selected");
+         character.selectedCharacter=character;
+         renderRightPanel(character);
       });
       card.appendChild(hr);
    });
    renderGold();
 }
 
+function renderRightPanel(character){
+   heroInfo.innerHTML=''
+   const info = document.createElement("div");
+   info.innerHTML = `
+      <h3>${character.name}</h3>
+      <p>Class: ${character.characterClass}</p>
+      <p class="HP">HP: ${character.currentHP}/${character.hp}</p>
+      <p>Attack: ${character.attack}</p>
+      <p>Defense: ${character.defense}</p>
+      <p>Mana: ${character.mana}</p>
+      <p>Rarity: ${character.rarity}</p>
+      `;
+      info.classList.add("info");
+      heroInfo.appendChild(info)
+}

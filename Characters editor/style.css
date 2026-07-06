@@ -8,11 +8,21 @@
    align-items:center;
 } 
 
+#list{
+   display: flex;
+}
+
 #heroCards{
    flex-wrap: wrap;
    display:flex;
    gap: 10px;
-   max-width: 1000px;
+   width: 1000px;
 }
 
-.card{}
+.info {
+   width: 300px;
+   justify-content: center;
+   padding: 20px;
+   font-size: 22px;
+   border: 2px solid gold;
+}
