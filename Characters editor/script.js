@@ -171,11 +171,12 @@ function renderCharacters() {
       <p>Rarity: ${character.rarity}</p>
       `;
       card.classList.add("card")
-      const deleteBtn = document.createElement("button");
+      const sellBtn = document.createElement("button");
       const fightBtn = document.createElement("button")
-      deleteBtn.textContent = "Удалить персонажа";
+      sellBtn.textContent = "Продать персонажа";
       fightBtn.textContent = "Бой"
-      deleteBtn.addEventListener("click", () => {
+      sellBtn.addEventListener("click", () => {
+         game.gold += 10;
          game.characters.splice(index,1);
          renderCharacters();
       });
@@ -185,7 +186,7 @@ function renderCharacters() {
             renderCharacters()
          }
       });
-      card.appendChild(deleteBtn);
+      card.appendChild(sellBtn);
       card.appendChild(fightBtn);
       const hr = document.createElement("hr");
       card.appendChild(hr);
@@ -198,5 +199,6 @@ function renderCharacters() {
          card.classList.add("selected");
       });
    });
+   renderGold();
 }
 
