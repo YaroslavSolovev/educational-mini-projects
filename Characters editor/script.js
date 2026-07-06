@@ -6,7 +6,7 @@ const hpEl = document.querySelector("#hp");
 const attackEl = document.querySelector("#attack");
 const defenseEl = document.querySelector("#defense");
 const manaEl = document.querySelector("#mana");
-const list = document.querySelector("#list");
+const heroCards = document.querySelector("#heroCards");
 const getGold = document.querySelector("#gold");
 const addGoldBtn = document.querySelector("#addGold");
 const game ={
@@ -157,7 +157,7 @@ btn.addEventListener("click", () => {
 });
 
 function renderCharacters() {
-   list.innerHTML = "";
+   heroCards.innerHTML = "";
 
    game.characters.forEach((character,index) => {
       const card = document.createElement("div");
@@ -189,8 +189,23 @@ function renderCharacters() {
       card.appendChild(sellBtn);
       card.appendChild(fightBtn);
       const hr = document.createElement("hr");
-      card.appendChild(hr);
-      list.appendChild(card);
+      heroCards.appendChild(card);
+      if (character.currentHP != character.hp){
+         const healBtn = document.createElement("button");
+         healBtn.textContent = "Вылечить персонажа";
+         card.appendChild(healBtn);
+         healBtn.addEventListener("click", () => {
+            if (game.gold >= 20){
+               game.gold -= 20;
+               if (character.currentHP+100 <= character.hp){
+                  character.currentHP += 100
+               } else {
+                  character.currentHP = character.hp
+               }
+               renderCharacters();
+            }
+         });
+      }
       card.addEventListener("click", () => {
          const allCard=document.querySelectorAll(".card")
          allCard.forEach(cards => {
@@ -198,6 +213,7 @@ function renderCharacters() {
          });
          card.classList.add("selected");
       });
+      card.appendChild(hr);
    });
    renderGold();
 }
