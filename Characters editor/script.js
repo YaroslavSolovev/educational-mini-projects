@@ -174,24 +174,26 @@ function renderCharacters() {
       <p>Mana: ${character.mana}</p>
       <p>Rarity: ${character.rarity}</p>
       `;
+      const rarityClass = character.rarity.toLowerCase()
       card.classList.add("card")
+      card.classList.add(rarityClass)
       const sellBtn = document.createElement("button");
-      const fightBtn = document.createElement("button")
+      // const fightBtn = document.createElement("button")
       sellBtn.textContent = "Продать персонажа";
-      fightBtn.textContent = "Бой"
+      // fightBtn.textContent = "Бой"
       sellBtn.addEventListener("click", () => {
          game.gold += 10;
          game.characters.splice(index,1);
          renderCharacters();
       });
-      fightBtn.addEventListener("click", () => {
-         if (character.currentHP>150){
-            character.currentHP-=150
-            renderCharacters()
-         }
-      });
+      // fightBtn.addEventListener("click", () => {
+      //    if (character.currentHP>150){
+      //       character.currentHP-=150
+      //       renderCharacters()
+      //    }
+      // });
       card.appendChild(sellBtn);
-      card.appendChild(fightBtn);
+      // card.appendChild(fightBtn);
       const hr = document.createElement("hr");
       heroCards.appendChild(card);
       if (character.currentHP != character.hp){
