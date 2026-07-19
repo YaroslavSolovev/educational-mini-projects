@@ -33,7 +33,18 @@
          </div>
       </div>
    </div>
-
+   <template class="hero-card-template">
+      <img src="" id="hero-img">
+      <h3 id="hero-name"></h3>
+      <p id="hero-class"></p>
+      <p class="hero-HP">HP: <span id="hero-current-HP"></span>/<span id="hero-max-HP"></span></p>
+      <p id="hero-attack">Attack: <span class="hero-current-attack"></span></p>
+      <p id="hero-defense">Defense: <span id="hero-current-defense"></span></p>
+      <p id="hero-mana">Mana: <span id="hero-current-mana"></span></p>
+      <p id="hero-rarity"></p>
+      <button class="sell-btn">Продать</button>
+      <button class="heal-btn" style="display:none;">Вылечить</button>
+   </template>
 </body>
-<script src="script.js"></script>
+<script type="module" src="./app.js"></script>
 </html>
