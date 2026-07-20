@@ -1,7 +1,8 @@
 export class Game {
    constructor() {
       this.gold = 5000;
-      this.characterSellPrice=20;
+      this.characterPrice = 100;
+      this.characterSellPrice = 20;
       this.characters = [];
       this.selectedCharacter = null;
    }
@@ -11,11 +12,10 @@ export class Game {
    }
 
    buyCharacter(character) {
-      const price = 100;
-      if (this.gold < price) {
+      if (this.gold < this.characterPrice) {
          return false;
       }
-      this.gold -= price;
+      this.gold -= this.characterPrice;
       this.characters.push(character);
       return true;
    }

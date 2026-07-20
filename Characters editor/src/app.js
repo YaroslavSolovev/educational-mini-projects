@@ -60,22 +60,52 @@ function renderCharacters() {
 
 function renderSelectedCharacter() {
    const character = game.selectedCharacter;
+
    heroInfo.innerHTML = "";
+
    if (!character) {
       return;
    }
+
    const info = document.createElement("div");
    info.classList.add("info");
-   info.innerHTML = `
-      <img src="${character.imagePath}" alt="${character.name}">
-      <h3>${character.name}</h3>
-      <p>Class: ${character.className}</p>
-      <p>HP: ${character.currentHP}/${character.hp}</p>
-      <p>Attack: ${character.attack}</p>
-      <p>Defense: ${character.defense}</p>
-      <p>Mana: ${character.mana}</p>
-      <p>Rarity: ${character.rarity}</p>
-   `;
+
+   const image = document.createElement("img");
+   image.src = character.imagePath;
+   image.alt = character.name;
+
+   const name = document.createElement("h3");
+   name.textContent = character.name;
+
+   const heroClass = document.createElement("p");
+   heroClass.textContent = `Class: ${character.className}`;
+
+   const hp = document.createElement("p");
+   hp.textContent = `HP: ${character.currentHP}/${character.hp}`;
+
+   const attack = document.createElement("p");
+   attack.textContent = `Attack: ${character.attack}`;
+
+   const defense = document.createElement("p");
+   defense.textContent = `Defense: ${character.defense}`;
+
+   const mana = document.createElement("p");
+   mana.textContent = `Mana: ${character.mana}`;
+
+   const rarity = document.createElement("p");
+   rarity.textContent = `Rarity: ${character.rarity}`;
+
+   info.append(
+      image,
+      name,
+      heroClass,
+      hp,
+      attack,
+      defense,
+      mana,
+      rarity
+   );
+
    heroInfo.appendChild(info);
 }
 

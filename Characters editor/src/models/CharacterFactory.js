@@ -92,7 +92,7 @@ class CharacterFactory{
    }
 
    static generateRarity(){
-      let rand = Math.floor(Math.random()* 100)
+      const rand = Math.floor(Math.random() * 100) + 1;
       for ( let key in RARITIES){
          if (rand <= RARITIES[key].probability){
             return key
