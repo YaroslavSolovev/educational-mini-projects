@@ -10,13 +10,13 @@ class HeroCard extends HTMLElement{
          heroClass: this.shadow.querySelector("#hero-class"),
          currentHP: this.shadow.querySelector("#hero-current-HP"),
          maxHP: this.shadow.querySelector("#hero-max-HP"),
-         attack: this.shadow.querySelector("#hero-current-attack"),
+         attack: this.shadow.querySelector(".hero-current-attack"),
          defense: this.shadow.querySelector("#hero-current-defense"),
          mana: this.shadow.querySelector("#hero-current-mana"),
          rarity: this.shadow.querySelector("#hero-rarity"),
-         sellBtn: this.shadow.querySelector("#sell-btn"),
-         healBtn: this.shadow.querySelector("#heal-btn"),
-      }
+         sellBtn: this.shadow.querySelector(".sell-btn"),
+         healBtn: this.shadow.querySelector(".heal-btn"),
+      };
    }
    
    set character(character) {
@@ -51,7 +51,9 @@ class HeroCard extends HTMLElement{
             new CustomEvent("sell", {
                   bubbles: true,
                   composed: true,
-                  detail: this.character
+                  detail: {
+                     character: this.character
+                  }
             })
          );
       });

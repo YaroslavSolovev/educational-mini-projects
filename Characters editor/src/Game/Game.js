@@ -1,11 +1,35 @@
-import { Character } from '../models/Character.js';
-import { CharacterFactory } from '../models/CharacterFactory.js';
+export class Game {
+   constructor() {
+      this.gold = 5000;
+      this.characters = [];
+      this.selectedCharacter = null;
+   }
 
-const game ={
-   gold: 5000,
-   characters: [],
-   selectedCharacter: null
-};
-getGold.textContent=`Gold: ${game.gold}`
+   addGold(amount) {
+      this.gold += amount;
+   }
 
-export { game, renderCharacters, renderGold, renderRightPanel };
+   buyCharacter(character) {
+      const price = 100;
+      if (this.gold < price) {
+         return false;
+      }
+      this.gold -= price;
+      this.characters.push(character);
+      return true;
+   }
+
+   sellCharacter(character) {
+      const characterExists = this.characters.includes(character);
+      if (!characterExists) {
+         return false;
+      }
+      this.characters = this.characters.filter(
+         currentCharacter => currentCharacter !== character
+      );
+      this.gold += 100;
+      return true;
+   }
+}
+
+export const game = new Game();
