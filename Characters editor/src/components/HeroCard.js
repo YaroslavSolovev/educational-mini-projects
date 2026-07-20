@@ -45,20 +45,31 @@ class HeroCard extends HTMLElement{
       }
 
    connectedCallback() {
-      this.stats.sellBtn.addEventListener("click", (event) => {
-         event.stopPropagation();
+      this.addEventListener("click", () => {
          this.dispatchEvent(
-            new CustomEvent("sell", {
-                  bubbles: true,
-                  composed: true,
-                  detail: {
-                     character: this.character
-                  }
+            new CustomEvent("select-character", {
+               bubbles: true,
+               composed: true,
+               detail: {
+                  character: this.character
+               }
             })
          );
       });
 
-      }
+      this.stats.sellBtn.addEventListener("click", (event) => {
+         event.stopPropagation();
+         this.dispatchEvent(
+            new CustomEvent("sell", {
+               bubbles: true,
+               composed: true,
+               detail: {
+                  character: this.character
+               }
+            })
+         );
+      });
+   }
 }
    
 customElements.define("hero-card", HeroCard);

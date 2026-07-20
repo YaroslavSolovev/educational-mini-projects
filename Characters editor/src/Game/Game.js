@@ -1,6 +1,7 @@
 export class Game {
    constructor() {
       this.gold = 5000;
+      this.characterSellPrice=20;
       this.characters = [];
       this.selectedCharacter = null;
    }
@@ -27,7 +28,19 @@ export class Game {
       this.characters = this.characters.filter(
          currentCharacter => currentCharacter !== character
       );
-      this.gold += 100;
+      if (this.selectedCharacter === character) {
+         this.selectedCharacter = null;
+      }
+      this.gold += this.characterSellPrice;
+      return true;
+   }
+
+   selectCharacter(character) {
+      const characterExists = this.characters.includes(character);
+      if (!characterExists) {
+         return false;
+      }
+      this.selectedCharacter = character;
       return true;
    }
 }
