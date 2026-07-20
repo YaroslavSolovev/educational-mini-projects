@@ -34,16 +34,79 @@
       </div>
    </div>
    <template id="hero-card-template">
-      <img src="" id="hero-img">
-      <h3 id="hero-name"></h3>
-      <p id="hero-class"></p>
-      <p class="hero-HP">HP: <span id="hero-current-HP"></span>/<span id="hero-max-HP"></span></p>
-      <p id="hero-attack">Attack: <span class="hero-current-attack"></span></p>
-      <p id="hero-defense">Defense: <span id="hero-current-defense"></span></p>
-      <p id="hero-mana">Mana: <span id="hero-current-mana"></span></p>
-      <p id="hero-rarity"></p>
-      <button class="sell-btn">Продать</button>
-      <button class="heal-btn" style="display:none;">Вылечить</button>
+      <style>
+         .card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 160px;
+            max-height: 500px;
+            padding: 10px;
+            box-sizing: border-box;
+            border-radius: 20px;
+         }
+
+         .card img {
+            width: 100px;
+            height: 232.88px;
+            object-fit: cover;
+         }
+
+         .card p {
+            margin: 2px 0;
+         }
+
+         .card h3 {
+            margin: 4px 0;
+         }
+
+         .common {
+            border: 3px solid #8d8d8d;
+         }
+
+         .rare {
+            border: 3px solid #2b7cff;
+         }
+
+         .epic {
+            border: 3px solid #9b30ff;
+         }
+
+         .legendary {
+            border: 3px solid #ffb300;
+         }
+      </style>
+
+      <div class="card">
+         <img src="" id="hero-img" alt="">
+
+         <h3 id="hero-name"></h3>
+
+         <p id="hero-class"></p>
+
+         <p class="hero-HP">
+            HP:
+            <span id="hero-current-HP"></span>/
+            <span id="hero-max-HP"></span>
+         </p>
+
+         <p>
+            Attack:
+            <span class="hero-current-attack"></span>
+         </p>
+
+         <p>
+            Defense:
+            <span id="hero-current-defense"></span>
+         </p>
+         <p>
+            Mana:
+            <span id="hero-current-mana"></span>
+         </p>
+         <p id="hero-rarity"></p>
+         <button class="sell-btn">Продать</button>
+         <button class="heal-btn" hidden>Вылечить</button>
+      </div>
    </template>
 </body>
 <script type="module" src="./src/app.js"></script>

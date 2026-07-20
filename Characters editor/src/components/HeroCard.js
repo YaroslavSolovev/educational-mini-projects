@@ -5,6 +5,7 @@ class HeroCard extends HTMLElement{
       const template = document.querySelector("#hero-card-template");
       this.shadow.appendChild(template.content.cloneNode(true));
       this.stats = {
+         card: this.shadow.querySelector(".card"),
          img: this.shadow.querySelector("#hero-img"),
          name: this.shadow.querySelector("#hero-name"),
          heroClass: this.shadow.querySelector("#hero-class"),
@@ -28,6 +29,15 @@ class HeroCard extends HTMLElement{
       return this._character;
    }
 
+   set selected(value) {
+      this._selected = Boolean(value);
+      this.renderSelectedState();
+   }
+
+   get selected() {
+      return this._selected;
+   }
+
    render(){
       const hero = this._character;
 
@@ -42,7 +52,22 @@ class HeroCard extends HTMLElement{
       this.stats.mana.textContent = hero.mana;
       this.stats.rarity.textContent = hero.rarity;
       this.stats.img.src = hero.imagePath;
+
+      this.stats.card.classList.remove(
+         "common",
+         "rare",
+         "epic",
+         "legendary"
+      );
+
+      this.stats.card.classList.add(
+         hero.rarity.toLowerCase()
+      );
+   }
+   renderSelectedState() {
+         this.classList.toggle("selected", Boolean(this._selected));
       }
+   
 
    connectedCallback() {
       this.addEventListener("click", () => {
@@ -70,8 +95,7 @@ class HeroCard extends HTMLElement{
          );
       });
    }
-}
-   
+   }
 customElements.define("hero-card", HeroCard);
 
 export default HeroCard;

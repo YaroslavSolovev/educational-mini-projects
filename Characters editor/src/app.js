@@ -32,6 +32,7 @@ heroCards.addEventListener("select-character", (event) => {
    if (!wasSelected) {
       return;
    }
+   renderCharacters();
    renderSelectedCharacter();
 });
 
@@ -49,10 +50,10 @@ createBtn.addEventListener("click", () => {
 
 function renderCharacters() {
    heroCards.innerHTML = "";
-
    game.characters.forEach((character) => {
       const card = document.createElement("hero-card");
       card.character = character;
+      card.selected = character === game.selectedCharacter;
       heroCards.appendChild(card);
    });
 }
